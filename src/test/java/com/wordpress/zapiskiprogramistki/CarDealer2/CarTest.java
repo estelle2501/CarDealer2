@@ -8,16 +8,15 @@ public class CarTest {
 	
 	CarFacade facade = new CarConfiguration().carFacade();
 	
-	String carBrand = "Alfa Romeo";
-	CarDto alfa = createCarDto(carBrand);
-
+	String carBrandAlfa = "Alfa Romeo";
+	CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 	
 	@Test
 	public void shouldAddCar() {
 		
-		facade.add(alfa);
+		facade.add(carDtoAlfa);
 		
-		assertEquals(alfa.getBrand(), facade.show(alfa.getBrand()).getBrand());
+		assertEquals(carBrandAlfa, facade.show(carBrandAlfa).getBrand());
 		
 	}
 
