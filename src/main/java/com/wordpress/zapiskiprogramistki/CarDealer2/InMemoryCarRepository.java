@@ -23,4 +23,9 @@ public class InMemoryCarRepository {
 
 		return carList;
 	}
+
+	public void delete(String brand) {
+		map.remove(brand);
+		
+	}
 }

@@ -38,4 +38,10 @@ public class CarFacade {
 		return carDtoList;
 	}
 
+	public void delete(String brand) {
+		
+		carRepository.delete(brand);
+		
+	}
+
 }
