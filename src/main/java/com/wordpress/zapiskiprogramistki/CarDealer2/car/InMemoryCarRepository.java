@@ -1,4 +1,4 @@
-package com.wordpress.zapiskiprogramistki.CarDealer2;
+package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;

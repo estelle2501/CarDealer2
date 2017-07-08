@@ -1,5 +1,4 @@
-package com.wordpress.zapiskiprogramistki.CarDealer2;
-
+package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
