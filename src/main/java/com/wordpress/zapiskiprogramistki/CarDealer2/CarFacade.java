@@ -15,15 +15,8 @@ public class CarFacade {
 
 	public CarDto add(CarDto carDto) {
 
-		Car car = carCreator.from(carDto);
+		Car car = carCreator.from(carDto, CarIdGenerator.getNextId());
 		car = carRepository.save(car);
-
-		return car.dto();
-	}
-
-	public CarDto show(String carBrand) {
-
-		Car car = carRepository.findByBrand(carBrand);
 
 		return car.dto();
 	}
@@ -38,10 +31,17 @@ public class CarFacade {
 		return carDtoList;
 	}
 
-	public void delete(String brand) {
-		
-		carRepository.delete(brand);
-		
+	public void delete(int id) {
+
+		carRepository.delete(id);
+
+	}
+
+	public CarDto findById(int id) {
+
+		Car car = carRepository.findById(id);
+
+		return car.dto();
 	}
 
 }

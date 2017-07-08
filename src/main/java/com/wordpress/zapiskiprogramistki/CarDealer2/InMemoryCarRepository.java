@@ -6,26 +6,26 @@ import java.util.stream.Collectors;
 
 public class InMemoryCarRepository {
 
-	private ConcurrentHashMap<String, Car> map = new ConcurrentHashMap<>();
+	private ConcurrentHashMap<Integer, Car> map = new ConcurrentHashMap<>();
 
-	public Car save(Car car) {
-		map.put(car.dto().getBrand(), car);
+	 Car save(Car car) {
+		map.put(car.dto().getId(), car);
 		return car;
 	}
 
-	public Car findByBrand(String carBrand) {
-		return map.get(carBrand);
-	}
-
-	public List<Car> findAll() {
+	List<Car> findAll() {
 
 		List<Car> carList = map.values().stream().collect(Collectors.toList());
 
 		return carList;
 	}
 
-	public void delete(String brand) {
-		map.remove(brand);
-		
+	void delete(int id) {
+		map.remove(id);
+
+	}
+
+	Car findById(int id) {
+		return map.get(id);
 	}
 }

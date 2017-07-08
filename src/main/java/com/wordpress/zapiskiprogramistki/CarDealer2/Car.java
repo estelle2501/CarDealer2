@@ -5,13 +5,13 @@ import lombok.Builder;
 @Builder
 public class Car {
 
+	private int id;
 	private String brand;
 
-	public CarDto dto() {
+	CarDto dto() {
 
-		return CarDto.builder().
-				brand(brand).
-				build();
+		return CarDto.builder().id(id).brand(brand)
+				.build();
 	}
 
 }

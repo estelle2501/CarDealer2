@@ -12,23 +12,27 @@ public class CarTest {
 
 	String carBrandAlfa = "Alfa Romeo";
 	String carBrandToyota = "Toyota";
-	CarDto carDtoAlfa = createCarDto(carBrandAlfa);
-	CarDto carDtoToyota = createCarDto(carBrandToyota);
 
 	@Test
 	public void shouldAddCar() {
 
-		facade.add(carDtoAlfa);
+		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 
-		assertEquals(carBrandAlfa, facade.show(carBrandAlfa).getBrand());
+		carDtoAlfa = facade.add(carDtoAlfa);
+
+		assertEquals(carBrandAlfa, facade.findById(carDtoAlfa.getId())
+				.getBrand());
 
 	}
 
 	@Test
 	public void shoudFindAllCars() {
 
-		facade.add(carDtoAlfa);
-		facade.add(carDtoToyota);
+		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
+		CarDto carDtoToyota = createCarDto(carBrandToyota);
+
+		carDtoAlfa = facade.add(carDtoAlfa);
+		carDtoToyota = facade.add(carDtoToyota);
 
 		List<CarDto> carDtoList = facade.findAll();
 
@@ -40,10 +44,13 @@ public class CarTest {
 	@Test
 	public void shoulDeleteCar() {
 
-		facade.add(carDtoAlfa);
-		facade.add(carDtoToyota);
+		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
+		CarDto carDtoToyota = createCarDto(carBrandToyota);
 
-		facade.delete(carBrandAlfa);
+		carDtoAlfa = facade.add(carDtoAlfa);
+		carDtoToyota = facade.add(carDtoToyota);
+
+		facade.delete(carDtoAlfa.getId());
 
 		List<CarDto> carDtoList = facade.findAll();
 
