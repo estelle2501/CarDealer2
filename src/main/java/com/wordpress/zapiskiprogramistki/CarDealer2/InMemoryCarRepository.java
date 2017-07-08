@@ -1,6 +1,8 @@
 package com.wordpress.zapiskiprogramistki.CarDealer2;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class InMemoryCarRepository {
 
@@ -15,4 +17,10 @@ public class InMemoryCarRepository {
 		return map.get(carBrand);
 	}
 
+	public List<Car> findAll() {
+
+		List<Car> carList = map.values().stream().collect(Collectors.toList());
+
+		return carList;
+	}
 }
