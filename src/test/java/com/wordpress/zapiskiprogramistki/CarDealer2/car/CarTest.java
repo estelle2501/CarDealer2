@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class CarTest {
 
-	CarFacade facade = new CarConfiguration().carFacade();
+	CarFacade carFacade = new CarConfiguration().carFacade();
 
 	String carBrandAlfa = "Alfa Romeo";
 	String carBrandToyota = "Toyota";
@@ -18,9 +18,9 @@ public class CarTest {
 
 		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 
-		carDtoAlfa = facade.add(carDtoAlfa);
+		carDtoAlfa = carFacade.add(carDtoAlfa);
 
-		assertEquals(carBrandAlfa, facade.findById(carDtoAlfa.getId())
+		assertEquals(carBrandAlfa, carFacade.findById(carDtoAlfa.getId())
 				.getBrand());
 
 	}
@@ -31,10 +31,10 @@ public class CarTest {
 		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 		CarDto carDtoToyota = createCarDto(carBrandToyota);
 
-		carDtoAlfa = facade.add(carDtoAlfa);
-		carDtoToyota = facade.add(carDtoToyota);
+		carDtoAlfa = carFacade.add(carDtoAlfa);
+		carDtoToyota = carFacade.add(carDtoToyota);
 
-		List<CarDto> carDtoList = facade.findAll();
+		List<CarDto> carDtoList = carFacade.findAll();
 
 		assertTrue(carDtoList.contains(carDtoAlfa));
 		assertTrue(carDtoList.contains(carDtoToyota));
@@ -47,12 +47,12 @@ public class CarTest {
 		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 		CarDto carDtoToyota = createCarDto(carBrandToyota);
 
-		carDtoAlfa = facade.add(carDtoAlfa);
-		carDtoToyota = facade.add(carDtoToyota);
+		carDtoAlfa = carFacade.add(carDtoAlfa);
+		carDtoToyota = carFacade.add(carDtoToyota);
 
-		facade.delete(carDtoAlfa.getId());
+		carFacade.delete(carDtoAlfa.getId());
 
-		List<CarDto> carDtoList = facade.findAll();
+		List<CarDto> carDtoList = carFacade.findAll();
 
 		assertFalse(carDtoList.contains(carDtoAlfa));
 		assertTrue(carDtoList.contains(carDtoToyota));
