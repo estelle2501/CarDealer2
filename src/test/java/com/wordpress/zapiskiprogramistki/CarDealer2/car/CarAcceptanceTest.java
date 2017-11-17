@@ -1,6 +1,6 @@
 package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import javax.swing.text.AbstractDocument.Content;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,6 +17,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import com.wordpress.zapiskiprogramistki.CarDealer2.ApplicationConfig;
 
@@ -49,12 +53,14 @@ public class CarAcceptanceTest {
 		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 
 		carDtoAlfa = carFacade.add(carDtoAlfa);
-
-		ResultActions getCars = mockMvc.perform(MockMvcRequestBuilders
-				.get("/cars"));
-
-		getCars.andExpect(status().isOk());
-
+		
+		mockMvc.perform(
+				MockMvcRequestBuilders.get("/cars").contentType(
+						MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(
+						content().string(
+								"[{\"id\":0,\"brand\":\"Alfa Romeo\"}]"));
 	}
 
 	static private CarDto createCarDto(String carBrand) {
