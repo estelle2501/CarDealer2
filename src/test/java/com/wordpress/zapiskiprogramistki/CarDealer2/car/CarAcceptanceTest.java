@@ -57,7 +57,7 @@ public class CarAcceptanceTest {
 		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 
 		carDtoAlfa = carFacade.add(carDtoAlfa);
-		
+
 		// get "/cars" with one car in DB
 		mockMvc.perform(
 				MockMvcRequestBuilders.get("/cars").contentType(
@@ -74,7 +74,7 @@ public class CarAcceptanceTest {
 
 		carDtoFiat = carFacade.add(carDtoFiat);
 		carDtoToyota = carFacade.add(carDtoToyota);
-		
+
 		// get "/cars" with two cars in DB
 		mockMvc.perform(
 				MockMvcRequestBuilders.get("/cars").contentType(
@@ -84,8 +84,15 @@ public class CarAcceptanceTest {
 						content()
 								.string("[{\"id\":1,\"brand\":\"Fiat\"},{\"id\":2,\"brand\":\"Toyota\"}]"));
 
+		// get "cars/{id} for id=1
+		mockMvc.perform(
+				MockMvcRequestBuilders.get("/cars/{id}", 1).contentType(
+						MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(content().string("{\"id\":1,\"brand\":\"Fiat\"}"));
+
 		carFacade.delete(carDtoFiat.getId());
 		carFacade.delete(carDtoToyota.getId());
+
 	}
 
 	static private CarDto createCarDto(String carBrand) {
