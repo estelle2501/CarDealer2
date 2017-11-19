@@ -48,10 +48,17 @@ public class CarAcceptanceTest {
 	@Test
 	public void testCarController() throws Exception {
 
+		// get "/cars" with no cars in DB
+		mockMvc.perform(
+				MockMvcRequestBuilders.get("/cars").contentType(
+						MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.andExpect(content().string("[]"));
+
 		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 
 		carDtoAlfa = carFacade.add(carDtoAlfa);
-//Test with one car in DB
+		
+		// get "/cars" with one car in DB
 		mockMvc.perform(
 				MockMvcRequestBuilders.get("/cars").contentType(
 						MediaType.APPLICATION_JSON))
@@ -67,7 +74,8 @@ public class CarAcceptanceTest {
 
 		carDtoFiat = carFacade.add(carDtoFiat);
 		carDtoToyota = carFacade.add(carDtoToyota);
-//Test with two cars in DB
+		
+		// get "/cars" with two cars in DB
 		mockMvc.perform(
 				MockMvcRequestBuilders.get("/cars").contentType(
 						MediaType.APPLICATION_JSON))
