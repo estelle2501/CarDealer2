@@ -93,6 +93,12 @@ public class CarAcceptanceTest {
 		carFacade.delete(carDtoFiat.getId());
 		carFacade.delete(carDtoToyota.getId());
 
+		// post "cars" to add new car
+		mockMvc.perform(
+				MockMvcRequestBuilders.post("/cars")
+						.content("{\"brand\":\"Volvo\"}")
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
 	}
 
 	static private CarDto createCarDto(String carBrand) {
