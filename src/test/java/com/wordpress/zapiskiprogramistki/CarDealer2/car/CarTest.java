@@ -56,7 +56,11 @@ public class CarTest {
 		carDtoAlfa = carFacade.add(carDtoAlfa);
 		carDtoToyota = carFacade.add(carDtoToyota);
 
-		carFacade.delete(carDtoAlfa.getId());
+		try {
+			carFacade.delete(carDtoAlfa.getId());
+		} catch (CarNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		List<CarDto> carDtoList = carFacade.findAll();
 

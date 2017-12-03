@@ -33,9 +33,14 @@ public class CarFacade {
 		return carDtoList;
 	}
 
-	public void delete(int id) {
-
-		carRepository.delete(id);
+	public CarDto delete(int id) throws CarNotFoundException {
+		
+		Car car = carRepository.findById(id);
+		
+		CarDto deletedCar = car.dto();
+		carRepository.delete(deletedCar.getId());
+		
+		return deletedCar;
 
 	}
 

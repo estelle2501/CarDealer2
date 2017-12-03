@@ -3,6 +3,7 @@ package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,10 +31,14 @@ public class CarController {
 	List<CarDto> getCars() {
 		return carFacade.findAll();
 	}
-	
+
 	@PostMapping("cars")
-	CarDto addCar(@RequestBody CarDto dto){
-		return carFacade.add(dto);		
+	CarDto addCar(@RequestBody CarDto dto) {
+		return carFacade.add(dto);
 	}
 
+	@DeleteMapping("cars/{id}")
+	public CarDto deleteById(@PathVariable int id) throws CarNotFoundException {
+		return carFacade.delete(id);
+	}
 }
