@@ -3,6 +3,8 @@ package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.wordpress.zapiskiprogramistki.CarDealer2.car.exception.CarNotFoundException;
+
 public class CarFacade {
 
 	private InMemoryCarRepository carRepository;
@@ -37,7 +39,7 @@ public class CarFacade {
 
 	}
 
-	public CarDto findById(int id) {
+	public CarDto findById(int id) throws CarNotFoundException {
 
 		Car car = carRepository.findById(id);
 

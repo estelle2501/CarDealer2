@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wordpress.zapiskiprogramistki.CarDealer2.car.exception.CarNotFoundException;
+
 @RestController
 public class CarController {
 
@@ -20,7 +22,7 @@ public class CarController {
 	}
 
 	@GetMapping("cars/{id}")
-	CarDto getCar(@PathVariable int id) {
+	CarDto getCar(@PathVariable int id) throws CarNotFoundException {
 		return carFacade.findById(id);
 	}
 

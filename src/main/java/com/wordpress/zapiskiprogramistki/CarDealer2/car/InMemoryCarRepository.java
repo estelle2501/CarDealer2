@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import com.wordpress.zapiskiprogramistki.CarDealer2.car.exception.CarNotFoundException;
+
 public class InMemoryCarRepository {
 
 	private ConcurrentHashMap<Integer, Car> map = new ConcurrentHashMap<>();
@@ -25,7 +27,14 @@ public class InMemoryCarRepository {
 
 	}
 
-	Car findById(int id) {
-		return map.get(id);
+	Car findById(int id) throws CarNotFoundException {
+		
+		Car foundCar = map.get(id);
+		
+		if (foundCar==null){
+			throw new CarNotFoundException("No car-entry found with id: " + id);
+		}
+		
+		return foundCar;
 	}
 }

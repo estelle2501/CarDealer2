@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.wordpress.zapiskiprogramistki.CarDealer2.car.exception.CarNotFoundException;
+
 public class CarTest {
 
 	CarFacade carFacade = new CarConfiguration().carFacade();
@@ -20,8 +22,12 @@ public class CarTest {
 
 		carDtoAlfa = carFacade.add(carDtoAlfa);
 
-		assertEquals(carBrandAlfa, carFacade.findById(carDtoAlfa.getId())
-				.getBrand());
+		try {
+			assertEquals(carBrandAlfa, carFacade.findById(carDtoAlfa.getId())
+					.getBrand());
+		} catch (CarNotFoundException e) {
+			e.printStackTrace();
+		}
 
 	}
 

@@ -89,6 +89,12 @@ public class CarAcceptanceTest {
 				MockMvcRequestBuilders.get("/cars/{id}", 1).contentType(
 						MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andExpect(content().string("{\"id\":1,\"brand\":\"Fiat\"}"));
+		
+		
+		//get "cars/{id}" for non-existent id=7
+		mockMvc.perform(
+				MockMvcRequestBuilders.get("/cars/{id}", 7).contentType(
+						MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
 
 		carFacade.delete(carDtoFiat.getId());
 		carFacade.delete(carDtoToyota.getId());
