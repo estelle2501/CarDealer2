@@ -12,8 +12,8 @@ public class CarTest {
 
 	CarFacade carFacade = new CarConfiguration().carFacade();
 
-	String carBrandAlfa = "Alfa Romeo";
-	String carBrandToyota = "Toyota";
+	Brand carBrandAlfa = Brand.ALFA_ROMEO;
+	Brand carBrandToyota = Brand.TOYOTA;
 
 	@Test
 	public void shouldAddCar() {
@@ -69,7 +69,7 @@ public class CarTest {
 
 	}
 
-	static private CarDto createCarDto(String carBrand) {
+	static private CarDto createCarDto(Brand carBrand) {
 
 		return CarDto.builder().brand(carBrand).build();
 	}

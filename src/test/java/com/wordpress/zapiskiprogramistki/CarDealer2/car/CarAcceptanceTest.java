@@ -25,9 +25,9 @@ import com.wordpress.zapiskiprogramistki.CarDealer2.ApplicationConfig;
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class CarAcceptanceTest {
 
-	private String carBrandAlfa = "Alfa Romeo";
-	private String carBrandToyota = "Toyota";
-	private String carBrandFiat = "Fiat";
+	private Brand carBrandAlfa = Brand.ALFA_ROMEO;
+	private Brand carBrandToyota = Brand.TOYOTA;
+	private Brand carBrandFiat = Brand.FIAT;
 
 	@InjectMocks
 	CarController controller;
@@ -64,8 +64,14 @@ public class CarAcceptanceTest {
 						MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(
-						content().string(
-								"[{\"id\":0,\"brand\":\"Alfa Romeo\"}]"));
+						content()
+								.string("[{\"id\":0,"
+										+ "\"brand\":\"ALFA_ROMEO\","
+										+ "\"kilometerRange\":0,"
+										+ "\"registrationDate\":null,"
+										+ "\"color\":null,"
+										+ "\"fuelType\":null,"
+										+ "\"gearBox\":null}]"));
 
 		carFacade.delete(carDtoAlfa.getId());
 
@@ -82,13 +88,35 @@ public class CarAcceptanceTest {
 				.andExpect(status().isOk())
 				.andExpect(
 						content()
-								.string("[{\"id\":1,\"brand\":\"Fiat\"},{\"id\":2,\"brand\":\"Toyota\"}]"));
+								.string("[{\"id\":1,"
+										+ "\"brand\":\"FIAT\","
+										+ "\"kilometerRange\":0,"
+										+ "\"registrationDate\":null,"
+										+ "\"color\":null,"
+										+ "\"fuelType\":null,"
+										+ "\"gearBox\":null},"
+										+ "{\"id\":2,"
+										+ "\"brand\":\"TOYOTA\","
+										+ "\"kilometerRange\":0,"
+										+ "\"registrationDate\":null,"
+										+ "\"color\":null,"
+										+ "\"fuelType\":null,"
+										+ "\"gearBox\":null}]"));
 
 		// get "cars/{id} for id=1
 		mockMvc.perform(
 				MockMvcRequestBuilders.get("/cars/{id}", 1).contentType(
-						MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andExpect(content().string("{\"id\":1,\"brand\":\"Fiat\"}"));
+						MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(
+						content()
+								.string("{\"id\":1,"
+										+ "\"brand\":\"FIAT\","
+										+ "\"kilometerRange\":0,"
+										+ "\"registrationDate\":null,"
+										+ "\"color\":null,"
+										+ "\"fuelType\":null,"
+										+ "\"gearBox\":null}"));
 
 		// get "cars/{id}" for non-existent id=7
 		mockMvc.perform(
@@ -99,23 +127,31 @@ public class CarAcceptanceTest {
 		// post "cars" to add new car
 		mockMvc.perform(
 				MockMvcRequestBuilders.post("/cars")
-						.content("{\"brand\":\"Volvo\"}")
+						.content("{\"brand\":\"VOLVO\"}")
 						.contentType(MediaType.APPLICATION_JSON)).andExpect(
 				status().isOk());
 
 		// delete "cars/{id}" for id = 1
 		mockMvc.perform(MockMvcRequestBuilders.delete("/cars/{id}", 1))
 				.andExpect(status().isOk())
-				.andExpect(content().string("{\"id\":1,\"brand\":\"Fiat\"}"));
+				.andExpect(
+						content()
+								.string("{\"id\":1,"
+										+ "\"brand\":\"FIAT\","
+										+ "\"kilometerRange\":0,"
+										+ "\"registrationDate\":null,"
+										+ "\"color\":null,"
+										+ "\"fuelType\":null,"
+										+ "\"gearBox\":null}"));
 
 		// delete "cars/{id}" for id = 1 one more time
 		mockMvc.perform(MockMvcRequestBuilders.delete("/cars/{id}", 1))
 				.andExpect(status().isNotFound());
-		
+
 		carFacade.delete(carDtoToyota.getId());
 	}
 
-	static private CarDto createCarDto(String carBrand) {
+	static private CarDto createCarDto(Brand carBrand) {
 
 		return CarDto.builder().brand(carBrand).build();
 	}
