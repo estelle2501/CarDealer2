@@ -1,4 +1,4 @@
-package com.wordpress.zapiskiprogramistki.CarDealer2;
+package com.wordpress.zapiskiprogramistki.CarDealer2.dealer;
 
 import lombok.Getter;
 import lombok.Setter;
