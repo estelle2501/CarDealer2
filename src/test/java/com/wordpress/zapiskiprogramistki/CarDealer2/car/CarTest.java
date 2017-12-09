@@ -14,11 +14,12 @@ public class CarTest {
 
 	Brand carBrandAlfa = Brand.ALFA_ROMEO;
 	Brand carBrandToyota = Brand.TOYOTA;
+	
+	CarDto carDtoAlfa = createCarDto(carBrandAlfa);
+	CarDto carDtoToyota = createCarDto(carBrandToyota);
 
 	@Test
 	public void shouldAddCar() {
-
-		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
 
 		carDtoAlfa = carFacade.add(carDtoAlfa);
 
@@ -34,9 +35,6 @@ public class CarTest {
 	@Test
 	public void shoudFindAllCars() {
 
-		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
-		CarDto carDtoToyota = createCarDto(carBrandToyota);
-
 		carDtoAlfa = carFacade.add(carDtoAlfa);
 		carDtoToyota = carFacade.add(carDtoToyota);
 
@@ -49,9 +47,6 @@ public class CarTest {
 
 	@Test
 	public void shoulDeleteCar() {
-
-		CarDto carDtoAlfa = createCarDto(carBrandAlfa);
-		CarDto carDtoToyota = createCarDto(carBrandToyota);
 
 		carDtoAlfa = carFacade.add(carDtoAlfa);
 		carDtoToyota = carFacade.add(carDtoToyota);
@@ -67,6 +62,17 @@ public class CarTest {
 		assertFalse(carDtoList.contains(carDtoAlfa));
 		assertTrue(carDtoList.contains(carDtoToyota));
 
+	}
+	
+	@Test
+	public void shouldThrowCarNotFoundException(){
+	
+		try {
+			carFacade.findById(9);
+		} catch (CarNotFoundException e) {
+		assertEquals(e.getClass(), CarNotFoundException.class);
+		}
+		
 	}
 
 	static private CarDto createCarDto(Brand carBrand) {
