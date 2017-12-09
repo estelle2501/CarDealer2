@@ -1,6 +1,10 @@
 package com.wordpress.zapiskiprogramistki.CarDealer2.dealer;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
+import com.wordpress.zapiskiprogramistki.CarDealer2.dealer.exception.DealerNotFoundException;
 
 public class InMemoryDealerRepository {
 
@@ -12,8 +16,23 @@ public class InMemoryDealerRepository {
 		return dealer;
 	}
 
-	Dealer findById(int id) {
-		return dealerMap.get(id);
+	Dealer findById(int id) throws DealerNotFoundException {
+		
+		Dealer foundDealer = dealerMap.get(id);
+		
+		if(foundDealer==null){
+			throw new DealerNotFoundException("No dealer-entry found with id: " + id);
+		}
+		
+		return foundDealer;
+	}
+
+	List<Dealer> findAll() {
+		return dealerMap.values().stream().collect(Collectors.toList());
+	}
+
+	public void delete(int id) {
+		dealerMap.remove(id);
 	}
 
 }
