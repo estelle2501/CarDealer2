@@ -12,9 +12,9 @@ import lombok.ToString;
 @ToString
 public class CarDto {
 
-	private int id;
+	private Integer id;
 	private Brand brand;
-	private int kilometerRange;
+	private Integer kilometerRange;
 	private Date registrationDate;
 	private CarColor color;
 	private FuelType fuelType;

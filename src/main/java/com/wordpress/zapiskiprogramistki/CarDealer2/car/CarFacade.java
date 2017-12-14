@@ -1,18 +1,21 @@
 package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wordpress.zapiskiprogramistki.CarDealer2.car.exception.CarNotFoundException;
 
+
+@Transactional
 public class CarFacade {
 
-	private InMemoryCarRepository carRepository;
+	private CarRepository carRepository;
 	private CarCreator carCreator;
 
-	public CarFacade(InMemoryCarRepository carRepository, CarCreator carCreator) {
-		this.carRepository = carRepository;
+	public CarFacade(CarRepository carRepository, CarCreator carCreator) {
 		this.carCreator = carCreator;
+		this.carRepository = carRepository;
 	}
 
 	public CarDto add(CarDto carDto) {
@@ -23,30 +26,27 @@ public class CarFacade {
 		return car.dto();
 	}
 
-	public List<CarDto> findAll() {
+	public Page<CarDto> findAll(Pageable pageable) {
+		
+		return carRepository.findAll(pageable).map(car -> car.dto());
 
-		List<Car> carList = carRepository.findAll();
 
-		List<CarDto> carDtoList = carList.stream().map(car -> car.dto())
-				.collect(Collectors.toList());
-
-		return carDtoList;
 	}
 
 	public CarDto delete(int id) throws CarNotFoundException {
-		
-		Car car = carRepository.findById(id);
-		
+
+		Car car = carRepository.findOne(id);
+
 		CarDto deletedCar = car.dto();
 		carRepository.delete(deletedCar.getId());
-		
+
 		return deletedCar;
 
 	}
 
-	public CarDto findById(int id) throws CarNotFoundException {
+	public CarDto findById(int id){
 
-		Car car = carRepository.findById(id);
+		Car car = carRepository.findOneOrThrow(id);
 
 		return car.dto();
 	}

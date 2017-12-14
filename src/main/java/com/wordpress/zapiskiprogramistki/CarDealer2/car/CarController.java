@@ -1,8 +1,7 @@
 package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +14,6 @@ import com.wordpress.zapiskiprogramistki.CarDealer2.car.exception.CarNotFoundExc
 @RestController
 public class CarController {
 
-	@Autowired
 	private CarFacade carFacade;
 
 	public CarController(CarFacade carFacade) {
@@ -28,8 +26,8 @@ public class CarController {
 	}
 
 	@GetMapping("cars")
-	List<CarDto> getCars() {
-		return carFacade.findAll();
+	Page<CarDto> getCars(Pageable pageable) {
+		return carFacade.findAll(pageable);
 	}
 
 	@PostMapping("cars")

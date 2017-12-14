@@ -1,10 +1,11 @@
 package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.springframework.data.domain.Page;
 
 import com.wordpress.zapiskiprogramistki.CarDealer2.car.exception.CarNotFoundException;
 
@@ -38,10 +39,10 @@ public class CarTest {
 		carDtoAlfa = carFacade.add(carDtoAlfa);
 		carDtoToyota = carFacade.add(carDtoToyota);
 
-		List<CarDto> carDtoList = carFacade.findAll();
+		Page<CarDto> carDtoPage = carFacade.findAll(null);
 
-		assertTrue(carDtoList.contains(carDtoAlfa));
-		assertTrue(carDtoList.contains(carDtoToyota));
+		assertTrue(carDtoPage.getContent().contains(carDtoAlfa));
+		assertTrue(carDtoPage.getContent().contains(carDtoToyota));
 
 	}
 
@@ -57,10 +58,10 @@ public class CarTest {
 			e.printStackTrace();
 		}
 
-		List<CarDto> carDtoList = carFacade.findAll();
+		Page<CarDto> carDtoList = carFacade.findAll(null);
 
-		assertFalse(carDtoList.contains(carDtoAlfa));
-		assertTrue(carDtoList.contains(carDtoToyota));
+		assertFalse(carDtoList.getContent().contains(carDtoAlfa));
+		assertTrue(carDtoList.getContent().contains(carDtoToyota));
 
 	}
 	

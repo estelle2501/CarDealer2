@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class CarConfiguration {
 
-	@Bean
 	CarFacade carFacade() {
-		
-		return new CarFacade(new InMemoryCarRepository(), new CarCreator());
+		return carFacade(new InMemoryCarRepository());
 	}
 
+	@Bean
+	CarFacade carFacade(CarRepository carRepository) {
+		CarCreator carCreator = new CarCreator();
+		return new CarFacade(carRepository, carCreator);
+	}
 }

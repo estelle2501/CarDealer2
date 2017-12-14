@@ -2,18 +2,27 @@ package com.wordpress.zapiskiprogramistki.CarDealer2.car;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Car {
 
-	private int id;
+	@Id
+	private Integer id;
 	private Brand brand;
-	private int kilometerRange;
+	private Integer kilometerRange;
 	private Date registrationDate;
 	private CarColor color;
 	private FuelType fuelType;
-	private GearBox gearBox;
+	private GearBox gearBox;	
 
 	CarDto dto() {
 
